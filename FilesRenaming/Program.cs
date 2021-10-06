@@ -77,7 +77,6 @@ namespace FilesRenaming
                         File.Copy(Path.Combine(path, fileInf.Name), Path.Combine(pathNew, desiredDate == "" ? File.GetLastWriteTime(file).ToString(format) : desiredDate + "_" + counter + System.IO.Path.GetExtension(file)));
                         filesInPathNew.Add(desiredDate == "" ? File.GetLastWriteTime(file).ToString(format) : desiredDate + "_" + counter + System.IO.Path.GetExtension(file));
                     }
-
                 }
                 else
                 {
