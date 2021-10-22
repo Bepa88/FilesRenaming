@@ -1,8 +1,7 @@
 {
   "profiles": {
     "FilesRenaming": {
-      "commandName": "Project",
-      "commandLineArgs": "-s=C:\\Users\\Віра\\Desktop\\Test -f=yyyy_MM_dd_HH_mm_ss"
+      "commandName": "Project"
     }
   }
 }

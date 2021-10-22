@@ -34,12 +34,6 @@ namespace FilesRenaming
                     throw new InvalidOperationException("Arguments could not be parsed");
                 }
 
-                //if (sourceFolder == null)
-                //    throw new InvalidOperationException("Missing required option -s=sourcePath");
-
-                //Console.WriteLine(sourceFolder + destinationFolder + format + desiredDate);
-                //Console.ReadKey();
-
                 string sourcePath = sourceFolder;
                 string targetPath = destinationFolder != null ? destinationFolder : Path.Combine(sourceFolder, "_Output_");
                 string[] files = Directory.GetFiles(sourcePath);
@@ -64,14 +58,7 @@ namespace FilesRenaming
                     FileInfo fileInf = new FileInfo(file);
                     if (fileInf.Exists)
                     {
-                        if (desiredDate == null)
-                        {
-                            NameMatchChecking(sourcePath, targetPath, file, format, desiredDate);
-                        }
-                        else
-                        {
-                            NameMatchChecking(sourcePath, targetPath, file, format);
-                        }
+                        NameMatchChecking(sourcePath, targetPath, file, format, desiredDate);
                     }
                 }
             }
@@ -87,32 +74,37 @@ namespace FilesRenaming
 
         static void NameMatchChecking(string path, string pathNew, string file, string format, string desiredDate = null)
         {
+            if(format == null)
+            {
+                format = "yyyy - MM - dd_HH - mm";
+            }
+
             FileInfo fileInf = new FileInfo(file);
 
             if (filesInPathNew.Count == 0)
             {
-                File.Copy(Path.Combine(path, fileInf.Name), Path.Combine(pathNew, desiredDate == null ? File.GetLastWriteTime(file).ToString(format) + System.IO.Path.GetExtension(file) : desiredDate + System.IO.Path.GetExtension(file)));
-                filesInPathNew.Add(desiredDate == null ? File.GetLastWriteTime(file).ToString(format) + System.IO.Path.GetExtension(file) : desiredDate + System.IO.Path.GetExtension(file));
+                File.Copy(Path.Combine(path, fileInf.Name), Path.Combine(pathNew, desiredDate == null ? File.GetCreationTime(file).ToString(format) + System.IO.Path.GetExtension(file).ToLower().ToLower().ToLower() : desiredDate + System.IO.Path.GetExtension(file).ToLower().ToLower()));
+                filesInPathNew.Add(desiredDate == null ? File.GetCreationTime(file).ToString(format) + System.IO.Path.GetExtension(file).ToLower().ToLower() : desiredDate + System.IO.Path.GetExtension(file).ToLower().ToLower());
             }
             else
             {
-                if (filesInPathNew.Contains(desiredDate == null ? File.GetLastWriteTime(file).ToString(format) + System.IO.Path.GetExtension(file) : desiredDate + System.IO.Path.GetExtension(file)))
+                if (filesInPathNew.Contains(desiredDate == null ? File.GetCreationTime(file).ToString(format) + System.IO.Path.GetExtension(file).ToLower().ToLower() : desiredDate + System.IO.Path.GetExtension(file).ToLower().ToLower()))
                 {
-                    if (filesInPathNew.Contains(desiredDate == null ? File.GetLastWriteTime(file).ToString(format) + System.IO.Path.GetExtension(file) : desiredDate + "_" + counter + System.IO.Path.GetExtension(file)))
+                    if (filesInPathNew.Contains(desiredDate == null ? File.GetCreationTime(file).ToString(format) + "_" + counter + System.IO.Path.GetExtension(file).ToLower().ToLower() : desiredDate + "_" + counter + System.IO.Path.GetExtension(file).ToLower()))
                     {
                         counter++;
                         NameMatchChecking(path, pathNew, file, format);
                     }
                     else
                     {
-                        File.Copy(Path.Combine(path, fileInf.Name), Path.Combine(pathNew, desiredDate == null ? File.GetLastWriteTime(file).ToString(format) + System.IO.Path.GetExtension(file) : desiredDate + "_" + counter + System.IO.Path.GetExtension(file)));
-                        filesInPathNew.Add(desiredDate == null ? File.GetLastWriteTime(file).ToString(format) + System.IO.Path.GetExtension(file) : desiredDate + "_" + counter + System.IO.Path.GetExtension(file));
+                        File.Copy(Path.Combine(path, fileInf.Name), Path.Combine(pathNew, desiredDate == null ? File.GetCreationTime(file).ToString(format) + "_" + counter + System.IO.Path.GetExtension(file).ToLower() : desiredDate + "_" + counter + System.IO.Path.GetExtension(file).ToLower()));
+                        filesInPathNew.Add(desiredDate == null ? File.GetCreationTime(file).ToString(format) + "_" + counter + System.IO.Path.GetExtension(file).ToLower() : desiredDate + "_" + counter + System.IO.Path.GetExtension(file).ToLower());
                     }
                 }
                 else
                 {
-                    File.Copy(Path.Combine(path, fileInf.Name), Path.Combine(pathNew, desiredDate == null ? File.GetLastWriteTime(file).ToString(format) + System.IO.Path.GetExtension(file) : desiredDate + System.IO.Path.GetExtension(file)));
-                    filesInPathNew.Add(desiredDate == null ? File.GetLastWriteTime(file).ToString(format) + System.IO.Path.GetExtension(file) : desiredDate + System.IO.Path.GetExtension(file));
+                    File.Copy(Path.Combine(path, fileInf.Name), Path.Combine(pathNew, desiredDate == null ? File.GetCreationTime(file).ToString(format) + System.IO.Path.GetExtension(file).ToLower() : desiredDate + System.IO.Path.GetExtension(file).ToLower()));
+                    filesInPathNew.Add(desiredDate == null ? File.GetCreationTime(file).ToString(format) + System.IO.Path.GetExtension(file).ToLower() : desiredDate + System.IO.Path.GetExtension(file).ToLower());
                 }
             }
 
