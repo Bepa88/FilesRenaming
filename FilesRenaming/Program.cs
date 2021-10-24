@@ -93,7 +93,7 @@ namespace FilesRenaming
                     if (filesInPathNew.Contains(desiredDate == null ? File.GetCreationTime(file).ToString(format) + "_" + counter + System.IO.Path.GetExtension(file).ToLower().ToLower() : desiredDate + "_" + counter + System.IO.Path.GetExtension(file).ToLower()))
                     {
                         counter++;
-                        NameMatchChecking(path, pathNew, file, format);
+                        NameMatchChecking(path, pathNew, file, format, desiredDate);
                     }
                     else
                     {
