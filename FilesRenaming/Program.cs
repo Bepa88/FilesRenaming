@@ -22,7 +22,7 @@ namespace FilesRenaming
                          {
                              { "s=", "source Source folder", x => sourceFolder = x },
                              { "d=", "destination(optional) Destination folder(< source >/ _Output_ by defaul)",x=> destinationFolder=x},
-                             { "f=", "format(optional) Format of the output file name(yyyy - MM - dd_HH - mm by default)",x=>format= x},
+                             { "f=", "format(optional) Format of the output file name(yyyy-MM-dd_HH-mm by default)",x=>format= x},
                              {"dt=", "override-datetime(optional) DateTime for replacement",x=>desiredDate=x}
                          };
                 try
@@ -66,7 +66,7 @@ namespace FilesRenaming
             {
                 Console.WriteLine(@"-s, -source Source folder
 - d, -destination(optional) Destination folder(< source >/ _Output_ by default)
-- f, -format(optional) Format of the output file name(yyyy - MM - dd_HH - mm by default)
+- f, -format(optional) Format of the output file name(yyyy-MM-dd_HH-mm by default)
 - dt, -override-datetime(optional) DateTime for replacement");
                 Console.ReadKey();
             }
@@ -76,7 +76,7 @@ namespace FilesRenaming
         {
             if(format == null)
             {
-                format = "yyyy - MM - dd_HH - mm";
+                format = "yyyy-MM-dd_HH-mm";
             }
 
             FileInfo fileInf = new FileInfo(file);
